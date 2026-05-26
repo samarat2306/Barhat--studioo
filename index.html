@@ -193,7 +193,7 @@
       letter-spacing: .12em; text-transform: uppercase; color: var(--pink-lt);
       margin-bottom: 20px;
     }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; flex-shrink: 0; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; flex-shrink: 0; transition: background .4s; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
     .card-divider { height: 1px; background: rgba(255,255,255,.07); margin: 16px 0; }
     .card-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
@@ -583,18 +583,16 @@
       <div class="reveal rd1">
         <svg class="hero-spin-logo" width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Barhat Studio">
           <defs>
-            <path id="ring-hero" d="M 100,18 A 82,82 0 0,1 182,100 A 82,82 0 0,1 100,182 A 82,82 0 0,1 18,100 A 82,82 0 0,1 100,18"/>
+            <path id="ring-hero" d="M 100,34 A 66,66 0 0,1 166,100 A 66,66 0 0,1 100,166 A 66,66 0 0,1 34,100 A 66,66 0 0,1 100,34"/>
           </defs>
           <circle cx="100" cy="100" r="58" fill="#0d0b10"/>
           <circle cx="100" cy="100" r="54" fill="none" stroke="#c4386e" stroke-width=".7" stroke-opacity=".45"/>
           <text x="100" y="97" font-family="'Bodoni Moda','Georgia',serif" font-size="21"
             fill="#c4386e" text-anchor="middle" letter-spacing="5" font-weight="400">BARHAT</text>
-          <text x="100" y="111" font-family="'Raleway',sans-serif" font-size="5.2"
-            fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="1.8" font-weight="500">СУЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ</text>
           <g>
             <animateTransform attributeName="transform" type="rotate"
-              from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
-            <text font-size="11" fill="#df7aaa" letter-spacing="4.7"
+              from="0 100 100" to="360 100 100" dur="35s" repeatCount="indefinite"/>
+            <text font-size="11" fill="#df7aaa" letter-spacing="2.4"
                   font-family="'Raleway',sans-serif" font-weight="600">
               <textPath href="#ring-hero">СҰЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ · BARHAT ·</textPath>
             </text>
@@ -605,7 +603,7 @@
       <!-- Info card — без логотипа -->
       <div class="reveal rd2">
         <div class="hero-card">
-          <div class="card-status"><span class="status-dot"></span>Открыты сегодня</div>
+          <div class="card-status" id="studioStatus"><span class="status-dot" id="statusDot"></span><span id="statusText">ОТКРЫТЫ СЕЙЧАС</span></div>
           <div class="card-divider"></div>
           <div class="card-row">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -741,7 +739,7 @@
         <svg class="spin-logo-svg--lg" width="200" height="200" viewBox="0 0 200 200"
              xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Barhat Studio">
           <defs>
-            <path id="ring-about" d="M 100,18 A 82,82 0 0,1 182,100 A 82,82 0 0,1 100,182 A 82,82 0 0,1 18,100 A 82,82 0 0,1 100,18"/>
+            <path id="ring-about" d="M 100,34 A 66,66 0 0,1 166,100 A 66,66 0 0,1 100,166 A 66,66 0 0,1 34,100 A 66,66 0 0,1 100,34"/>
             <filter id="glow-about" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="3" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -751,12 +749,10 @@
           <circle cx="100" cy="100" r="54" fill="none" stroke="#c4386e" stroke-width=".7" stroke-opacity=".5"/>
           <text x="100" y="97" font-family="'Bodoni Moda','Georgia',serif" font-size="21"
             fill="#c4386e" text-anchor="middle" letter-spacing="5" font-weight="400">BARHAT</text>
-          <text x="100" y="111" font-family="'Raleway',sans-serif" font-size="5.2"
-            fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="1.8" font-weight="500">СУЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ</text>
           <g filter="url(#glow-about)">
             <animateTransform attributeName="transform" type="rotate"
-              from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
-            <text font-size="11" fill="#df7aaa" letter-spacing="4.7"
+              from="0 100 100" to="360 100 100" dur="35s" repeatCount="indefinite"/>
+            <text font-size="11" fill="#df7aaa" letter-spacing="2.4"
                   font-family="'Raleway',sans-serif" font-weight="600">
               <textPath href="#ring-about">СҰЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ · BARHAT ·</textPath>
             </text>
@@ -909,6 +905,20 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.07 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── Статус работы (часовой пояс Алматы) ──
+  (function() {
+    const almatyStr = new Date().toLocaleString('en-US', { timeZone: 'Asia/Almaty' });
+    const almatyDate = new Date(almatyStr);
+    const h = almatyDate.getHours();
+    const isOpen = h >= 9 && h < 21;
+    const dot = document.getElementById('statusDot');
+    const txt = document.getElementById('statusText');
+    if (dot && txt) {
+      dot.style.background = isOpen ? '#4ade80' : '#f87171';
+      txt.textContent = isOpen ? 'ОТКРЫТЫ СЕЙЧАС' : 'ЗАКРЫТО · Открываемся в 09:00';
+    }
+  })();
 </script>
 </body>
 </html>
