@@ -186,6 +186,11 @@
     .card-logo-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
     .card-logo-svg { width: 100px; height: 100px; filter: drop-shadow(0 0 20px rgba(196,56,110,.5)); }
 
+    /* spinning ring logo */
+    .spin-logo-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
+    .spin-logo-svg  { overflow: visible; filter: drop-shadow(0 0 22px rgba(196,56,110,.55)); }
+    .spin-logo-svg--lg { overflow: visible; filter: drop-shadow(0 0 40px rgba(196,56,110,.55)); }
+
     .card-status {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       background: rgba(196,56,110,.12); border-radius: 20px;
@@ -471,8 +476,35 @@
 
     <div class="reveal rd2">
       <div class="hero-card">
-        <div class="card-logo-wrap">
-          <svg class="card-logo-svg" role="img" aria-label="Barhat Studio"><use href="#logo-svg"/></svg>
+        <div class="spin-logo-wrap">
+          <!-- Hero card: spinning ring logo -->
+          <svg class="spin-logo-svg" width="128" height="128" viewBox="0 0 200 200"
+               xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Barhat Studio">
+            <defs>
+              <path id="ring-hero"
+                d="M 100,18 A 82,82 0 0,1 182,100 A 82,82 0 0,1 100,182 A 82,82 0 0,1 18,100 A 82,82 0 0,1 100,18"/>
+            </defs>
+            <!-- Static logo core -->
+            <circle cx="100" cy="100" r="58" fill="#0d0b10"/>
+            <circle cx="100" cy="100" r="54" fill="none" stroke="#c4386e" stroke-width=".7" stroke-opacity=".45"/>
+            <text x="100" y="97" font-family="'Bodoni Moda','Georgia',serif" font-size="21"
+              fill="#c4386e" text-anchor="middle" letter-spacing="5" font-weight="400">BARHAT</text>
+            <text x="100" y="111" font-family="'Raleway',sans-serif" font-size="5.2"
+              fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="1.8" font-weight="500">
+              СУЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ
+            </text>
+            <!-- Spinning text ring -->
+            <g>
+              <animateTransform attributeName="transform" type="rotate"
+                from="0 100 100" to="360 100 100" dur="16s" repeatCount="indefinite"/>
+              <text font-size="9.5" fill="#df7aaa" letter-spacing="2.2"
+                    font-family="'Raleway',sans-serif" font-weight="600">
+                <textPath href="#ring-hero">
+                  СҰЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ · BARHAT ·
+                </textPath>
+              </text>
+            </g>
+          </svg>
         </div>
         <div class="card-status"><span class="status-dot"></span>Открыты сегодня</div>
         <div class="card-divider"></div>
@@ -589,7 +621,39 @@
 
     <div class="about-right reveal rd2">
       <div class="about-logo-center">
-        <svg class="about-logo-big" role="img" aria-label="Barhat Studio"><use href="#logo-svg"/></svg>
+        <!-- About section: spinning ring logo (larger) -->
+        <svg class="spin-logo-svg--lg" width="200" height="200" viewBox="0 0 200 200"
+             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Barhat Studio">
+          <defs>
+            <path id="ring-about"
+              d="M 100,18 A 82,82 0 0,1 182,100 A 82,82 0 0,1 100,182 A 82,82 0 0,1 18,100 A 82,82 0 0,1 100,18"/>
+            <!-- subtle glow filter -->
+            <filter id="glow-about" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Static logo core -->
+          <circle cx="100" cy="100" r="58" fill="#0d0b10"/>
+          <circle cx="100" cy="100" r="54" fill="none" stroke="#c4386e" stroke-width=".7" stroke-opacity=".5"/>
+          <text x="100" y="97" font-family="'Bodoni Moda','Georgia',serif" font-size="21"
+            fill="#c4386e" text-anchor="middle" letter-spacing="5" font-weight="400">BARHAT</text>
+          <text x="100" y="111" font-family="'Raleway',sans-serif" font-size="5.2"
+            fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="1.8" font-weight="500">
+            СУЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ
+          </text>
+          <!-- Spinning text ring with glow -->
+          <g filter="url(#glow-about)">
+            <animateTransform attributeName="transform" type="rotate"
+              from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
+            <text font-size="9.5" fill="#df7aaa" letter-spacing="2.2"
+                  font-family="'Raleway',sans-serif" font-weight="600">
+              <textPath href="#ring-about">
+                СҰЛУЛЫҚ СТУДИЯСЫ · СТУДИЯ КРАСОТЫ · BARHAT ·
+              </textPath>
+            </text>
+          </g>
+        </svg>
       </div>
       <div class="metrics">
         <div class="metric">
